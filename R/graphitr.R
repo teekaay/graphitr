@@ -50,6 +50,9 @@ graphite_render_uri <- function(host, from, until, target, format = 'csv', ...) 
 #' @param default_scheme The scheme to append if no scheme is found
 #' @return The formatted host string
 format_host_name <- function(host, default_scheme = 'http') {
+  if (str_length(host) == 0) {
+    return(host)
+  }
   uri_scheme <- stringr::str_extract(host, '(http|file)://')
   if (is.na(uri_scheme)) {
     host <- str_c(default_scheme, '://', host)
