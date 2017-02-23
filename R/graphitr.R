@@ -12,7 +12,7 @@ kGraphiteCsvSep <- ','
 #' @param target The metric to retrieve
 #' @param format The format of the data. Defaults to csv
 graphite_get <- function(host, from, until, target, format = 'csv') {
-  uri <- graphite_render_url(host, from, until, target, format = format)
+  uri <- graphite_render_uri(host, from, until, target, format = format)
   df <- read.csv(uri, header = FALSE, sep = kGraphiteCsvSep, stringsAsFactors = FALSE)
   names(df) <- kGraphiteCsvHeader
   return(df)
