@@ -11,9 +11,31 @@ kGraphiteCsvSep <- ','
 #' @param until End of the time series. You can either use a Data or a string
 #' @param target The metric to retrieve
 #' @param format The format of the data. Defaults to csv
+#' @return A data frame
 graphite_get <- function(host, from, until, target, format = 'csv') {
-  uri <- graphite_render_uri(host, from, until, target, format = format)
-  df <- read.csv(uri, header = FALSE, sep = kGraphiteCsvSep, stringsAsFactors = FALSE)
+  host_f <- format_host_name(host)
+  uri <- graphite_render_uri(host_f, from, until, target, format = format)
+  return(graphite_read_csv(uri))
+}
+
+#' Read a file from the file system that was downloaded from Graphite.
+#'
+#' @param path The path of the file
+#' @return A data frame
+graphite_get_local <- function(path) {
+  uri <- format_host_name(path, default_scheme = 'file')
+  return(graphite_read_csv(uri))
+}
+
+#' Read a CSV file in Graphite format as a data.frame.
+#'
+#' This function is a wrapper around read.csv with additional
+#' naming of the columns.
+#'
+#' @param path The path of the resource
+#' @return A data frame
+graphite_read_csv <- function(path) {
+  df <- read.csv(path, header = FALSE, sep = kGraphiteCsvSep, stringsAsFactors = FALSE)
   names(df) <- kGraphiteCsvHeader
   return(df)
 }
