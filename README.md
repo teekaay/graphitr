@@ -3,10 +3,19 @@
 This package makes it easy to retrieve metrics from Graphite
 servers by using it's render API for raw data.
 
+# Install
+
+Directly from Github
+
+    devtools::install_github('teekaay/graphitr')
+    
+or locally after cloning 
+
+    make install
+
 # Usage
 
     library(graphitr)
-    
     host <- 'http://graphite.org/'
     from <- '-1d'
     until <- 'now'

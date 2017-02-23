@@ -7,8 +7,12 @@ R = Rscript
 DOC_DIR = man
 PDF_DOC = R2d.pdf
 
-all: deps check tests docs 
+all: deps check tests docs
 .PHONY: all
+
+# Install the package
+install:
+	R CMD INSTALL --no-multiarch --with-keep.source .
 
 # Install all dependencies defined in DEPENDENCIES.txt
 deps:
