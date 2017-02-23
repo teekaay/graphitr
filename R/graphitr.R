@@ -19,13 +19,15 @@ graphite_get <- function(host, from, until, target, format = 'csv') {
 }
 
 #' Render the graphite URL from multiple parameters.
+#' The URL is rendered in the following format:
+#' <host>/render?from=<from>&until=<until>&target=<target>&format=<format>.
 #'
 #' @param host The address of the graphite server
 #' @param from Start of the time series
 #' @param until End of the time series
 #' @param format The output format
 #' @return The rendered URI
-graphite_render_uri <- function(host, from, until, target, format = 'csv', ...) {
+graphite_render_uri <- function(host, from, until, target, format = 'csv') {
   key_value_param <- function(key, value) {
     kv <- paste(key, value, sep = '=', collapse = '')
     return(kv)
@@ -39,10 +41,8 @@ graphite_render_uri <- function(host, from, until, target, format = 'csv', ...) 
   return(url)
 }
 
-#' Formats a hostname so that it fullfills the following scheme:
-#'
-#' <scheme>://<host>{/}
-#'
+#' Formats a hostname to be valid.
+#' The pattern for an URI is <scheme>://<host>{/}.
 #' where scheme should be one of 'http' or 'file'. If the scheme is
 #' 'file' then no trailing slash is appended
 #'
@@ -64,10 +64,18 @@ format_host_name <- function(host, default_scheme = 'http') {
   return(host)
 }
 
-as_file_uri <- function(path) {
+#' Format the path as a file URI by prepending file://.
+#'
+#' @param path The path of the resource
+#' @return The formatted path
+format_as_file_uri <- function(path) {
   return(format_host_name(path, default_scheme = 'file'))
 }
 
-as_http_uri <- function(path) {
+#' Format the path as a HTTP URI by prepending http://
+#'
+#' @param path The path of the resource
+#' @return  The formatted path
+format_as_http_uri <- function(path) {
   return(format_host_name(path, default_scheme = 'http'))
 }
