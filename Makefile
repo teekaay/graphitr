@@ -12,21 +12,21 @@ all: deps check tests docs
 
 # Install all dependencies defined in DEPENDENCIES.txt
 deps:
-	$(R) install-deps.R
-
-# Run all specs in tests/
-tests:
-	$(R) -e 'testthat::test_dir(".")'
-
+	Rscript install-deps.R
 
 # Generate documentation via roxygen
 docs:
-	$(R) -e 'roxygen2::roxygenise()'
-	$(R) CMD Rd2pdf man
+	Rscript -e 'roxygen2::roxygenise()'
+	R CMD Rd2pdf man
 
 # Run sanity checks
 check:
-	$(R) CMD check .
+	R CMD check .
+	-rm -rf ..Rcheck
+
+# Run all specs in tests/testthat
+test:
+	Rscript -e 'devtools::test()'
 
 # Clean all generated files
 clean:
