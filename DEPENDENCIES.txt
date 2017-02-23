@@ -1,4 +1,4 @@
+devtools
 stringr
-dplyr
 testthat
 roxygen2
