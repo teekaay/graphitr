@@ -4,6 +4,11 @@
 # Operating Systems: Cross-platform
 
 R = Rscript
+DOC_DIR = man
+PDF_DOC = R2d.pdf
+
+all: deps check tests docs 
+.PHONY: all
 
 # Install all dependencies defined in DEPENDENCIES.txt
 deps:
@@ -17,3 +22,14 @@ tests:
 # Generate documentation via roxygen
 docs:
 	$(R) -e 'roxygen2::roxygenise()'
+	$(R) CMD Rd2pdf man
+
+# Run sanity checks
+check:
+	$(R) CMD check .
+
+# Clean all generated files
+clean:
+	rm $(DOC_DIR)/*.Rd
+	-rm -rf ..Rcheck
+	-rm *.pdf
