@@ -1,0 +1,11 @@
+Package: graphitr
+Type: Package
+Title: Retrieve Data From Graphite
+Version: 0.1.0
+Author: Thomas Klinger
+Maintainer: Thomas Klinger <Thomas.Klinger@otto.de>
+Description: Use Graphite's render API to get raw metric data.
+    Also includes a DSL for building queries.
+License: Apache
+Encoding: UTF-8
+LazyData: true
